@@ -48,6 +48,7 @@
         
         html {
             font-size: 16px;
+            scroll-behavior: smooth;
         }
         
         body {
@@ -151,6 +152,8 @@
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
 
         /* Grid Texture */
         .grid-texture {
@@ -219,6 +222,18 @@
                 to { opacity: 1; transform: none; }
             }
         }
+
+        .section-title {
+            @apply font-sans font-bold text-2xl text-accent mb-4 border-b border-accent/20 pb-2 inline-block;
+        }
+        
+        .content-text {
+            @apply text-slate-300 leading-relaxed text-sm sm:text-base;
+        }
+
+        .list-custom {
+            @apply list-disc list-inside space-y-2 text-slate-300 text-sm sm:text-base marker:text-accent;
+        }
     </style>
 </head>
 <body class="selection:bg-white selection:text-black">
@@ -226,10 +241,10 @@
     <canvas id="atomic-canvas"></canvas>
     <div class="grid-texture"></div>
 
-    <main class="relative z-10 min-h-screen flex flex-col items-center justify-center py-8 sm:py-10 md:py-12 px-3 sm:px-4">
+    <main class="relative z-10 min-h-screen flex flex-col items-center py-8 sm:py-10 md:py-12 px-3 sm:px-4">
         
         <!-- Header -->
-        <header class="text-center mb-12 sm:mb-16 max-w-4xl animate-fade-in opacity-0 forwards px-2">
+        <header class="text-center mb-12 sm:mb-16 max-w-5xl animate-fade-in opacity-0 forwards px-2">
             <div class="inline-flex items-center gap-2 mb-5 sm:mb-6 px-3 py-1.5 border border-accent/20 rounded-full bg-accent/5">
                 <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
                 <span class="font-mono text-[10px] sm:text-xs text-accent tracking-widest uppercase">IIM ATM 2025 Poster Presentation</span>
@@ -244,75 +259,71 @@
             </p>
         </header>
 
-        <!-- Hierarchy Layout: Triangle (Top: First Author, Bottom: Co-authors) -->
-        <div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-10 relative px-2 sm:px-4">
+        <!-- Authors Grid -->
+        <div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-16">
             
-            <!-- 1. FIRST AUTHOR (Center Top on Desktop, First on Mobile) -->
-            <!-- Using col-span-full to center in grid -->
-            <div class="md:col-span-2 flex justify-center order-1 mb-6 md:mb-4">
-                <div class="obsidian-card w-full max-w-[340px] sm:max-w-[380px] p-5 sm:p-6 md:p-8 rounded-2xl flex flex-col items-center text-center animate-fade-in delay-100 opacity-0 forwards">
-                    
-                    <div class="profile-img-container w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mb-4 sm:mb-6">
+            <!-- 1. FIRST AUTHOR -->
+            <div class="flex justify-center md:col-span-1">
+                <div class="obsidian-card w-full p-5 rounded-2xl flex flex-col items-center text-center animate-fade-in delay-100 opacity-0 forwards">
+                    <div class="profile-img-container w-20 h-20 mb-4">
                         <img src="https://ui-avatars.com/api/?name=Kovuru+Hemamruth&background=0f172a&color=38bdf8&size=128" alt="First Author" class="profile-img w-full h-full rounded-full object-cover">
                     </div>
-                    
-                    <span class="px-3 py-1 mb-3 text-[9px] sm:text-[10px] font-mono tracking-widest uppercase text-carbon bg-accent rounded-sm font-bold shadow-lg shadow-accent/20">First Author</span>
-                    
-                    <h2 class="font-sans text-xl sm:text-2xl font-bold text-white mb-1 text-enhanced">Kovuru Hemamruth</h2>
-                    <p class="font-mono text-[10px] sm:text-xs text-slate-400 uppercase tracking-wider mb-4 sm:mb-6">Dept. of Computer Science & Eng</p>
-                    
-                    <div class="w-full border-t border-accent/20 my-3 sm:my-4"></div>
-                    
-                    <div class="flex gap-5 sm:gap-6 text-base sm:text-lg">
-                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
+                    <span class="px-2 py-0.5 mb-2 text-[9px] font-mono tracking-widest uppercase text-carbon bg-accent rounded-sm font-bold">First Author</span>
+                    <h2 class="font-sans text-lg font-bold text-white mb-1">Kovuru Hemamruth</h2>
+                    <p class="font-mono text-[10px] text-slate-400 uppercase tracking-wider">Dept. of Computer Science & Eng</p>
                 </div>
             </div>
 
-            <!-- 2. CO-AUTHOR (Bottom Left) -->
-            <div class="flex justify-center md:justify-end order-2">
-                <div class="obsidian-card w-full max-w-[300px] sm:max-w-sm p-4 sm:p-5 md:p-6 rounded-2xl flex flex-col items-center text-center animate-fade-in delay-200 opacity-0 forwards">
-                    <div class="profile-img-container w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mb-3 sm:mb-4">
+            <!-- 2. CO-AUTHOR -->
+            <div class="flex justify-center md:col-span-1">
+                <div class="obsidian-card w-full p-5 rounded-2xl flex flex-col items-center text-center animate-fade-in delay-200 opacity-0 forwards">
+                    <div class="profile-img-container w-20 h-20 mb-4">
                         <img src="https://ui-avatars.com/api/?name=Harsh+Deep&background=0f172a&color=94a3b8&size=128" alt="Co-Author" class="profile-img w-full h-full rounded-full object-cover">
                     </div>
-                    <span class="font-mono text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-widest mb-2">Co-Author</span>
-                    <h2 class="font-sans text-lg sm:text-xl font-semibold text-slate-100 text-enhanced">Harsh Deep</h2>
-                    <p class="font-sans text-[10px] sm:text-xs text-slate-400 mt-1">Dept. of Electronics & Communication Eng</p>
-                    
-                    <div class="flex gap-4 mt-3 sm:mt-4 text-sm">
-                        <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
+                    <span class="font-mono text-[9px] text-slate-400 uppercase tracking-widest mb-2">Co-Author</span>
+                    <h2 class="font-sans text-lg font-semibold text-slate-100">Harsh Deep</h2>
+                    <p class="font-sans text-[10px] text-slate-400 mt-1">Dept. of Electronics & Communication Eng</p>
                 </div>
             </div>
 
-            <!-- 3. CO-AUTHOR (Bottom Right) -->
-            <div class="flex justify-center md:justify-start order-3">
-                <div class="obsidian-card w-full max-w-[300px] sm:max-w-sm p-4 sm:p-5 md:p-6 rounded-2xl flex flex-col items-center text-center animate-fade-in delay-300 opacity-0 forwards">
-                    <div class="profile-img-container w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mb-3 sm:mb-4">
+            <!-- 3. CO-AUTHOR -->
+            <div class="flex justify-center md:col-span-1">
+                <div class="obsidian-card w-full p-5 rounded-2xl flex flex-col items-center text-center animate-fade-in delay-300 opacity-0 forwards">
+                    <div class="profile-img-container w-20 h-20 mb-4">
                         <img src="https://ui-avatars.com/api/?name=M+John+Silvister+Raju&background=0f172a&color=94a3b8&size=128" alt="Co-Author" class="profile-img w-full h-full rounded-full object-cover">
                     </div>
-                    <span class="font-mono text-[9px] sm:text-[10px] text-slate-400 uppercase tracking-widest mb-2">Co-Author</span>
-                    <h2 class="font-sans text-lg sm:text-xl font-semibold text-slate-100 text-enhanced">M John Silvister Raju</h2>
-                    <p class="font-sans text-[10px] sm:text-xs text-slate-400 mt-1">Dept. of Mechanical & Automobile Eng</p>
-                    
-                    <div class="flex gap-4 mt-3 sm:mt-4 text-sm">
-                        <a href="https://www.linkedin.com/in/jsrajumungara/" class="social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:john.silvister@christuniversity.in" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
-                    </div>
+                    <span class="font-mono text-[9px] text-slate-400 uppercase tracking-widest mb-2">Co-Author</span>
+                    <h2 class="font-sans text-lg font-semibold text-slate-100">M John Silvister Raju</h2>
+                    <p class="font-sans text-[10px] text-slate-400 mt-1">Dept. of Mechanical & Automobile Eng</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="w-full max-w-6xl flex flex-col items-center justify-center gap-8 min-h-[20vh]">
+            
+            <div class="obsidian-card p-8 sm:p-10 rounded-2xl animate-fade-in delay-400 opacity-0 forwards text-center max-w-2xl">
+                <h3 class="section-title mb-6">Abstract & Poster</h3>
+                <p class="content-text mb-8">
+                    The full details of our research, including methodology, results, and future works, are available in the poster presentation. Please download the PDF to view the complete work.
+                </p>
             </div>
 
         </div>
 
-        <footer class="mt-16 sm:mt-20 md:mt-24 text-center animate-fade-in delay-300 opacity-0 forwards px-4">
-            <a href="#" class="inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 py-2.5 sm:py-3 border border-accent/30 hover:border-accent text-[10px] sm:text-xs font-mono uppercase tracking-widest transition-all duration-300 bg-carbon/60 backdrop-blur-sm rounded-sm hover:bg-accent/10 text-slate-200 hover:text-accent">
-                <span>Download Abstract</span>
-                <i class="fas fa-arrow-down"></i>
-            </a>
+        <footer class="mt-12 sm:mt-16 text-center animate-fade-in delay-300 opacity-0 forwards px-4 w-full max-w-4xl">
+            <div class="border-t border-accent/20 pt-8">
+                <p class="text-slate-400 text-sm mb-4">Acknowledgement</p>
+                <p class="text-white font-semibold">Centre of Excellence, Frontier Materials Research</p>
+                <p class="text-slate-400 text-sm">CHRIST (Deemed to be University), Bengaluru, Kengeri</p>
+            </div>
+            
+            <div class="mt-8">
+                <a href="poster.pdf" download="IIM_ATM_2025_Poster.pdf" class="inline-flex items-center gap-2 sm:gap-3 px-5 sm:px-6 py-2.5 sm:py-3 border border-accent/30 hover:border-accent text-[10px] sm:text-xs font-mono uppercase tracking-widest transition-all duration-300 bg-carbon/60 backdrop-blur-sm rounded-sm hover:bg-accent/10 text-slate-200 hover:text-accent">
+                    <span>Download Poster</span>
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
         </footer>
 
     </main>
